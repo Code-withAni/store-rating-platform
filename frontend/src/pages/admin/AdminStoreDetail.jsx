@@ -25,8 +25,8 @@ const AdminStoreDetail = () => {
       label: 'Customer',
       render: (row) => (
         <div>
-          <div style={{ fontWeight: 600 }}>{row.name}</div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--gray-500)' }}>{row.email}</div>
+          <div style={{ fontWeight: 'var(--weight-semibold)' }}>{row.name}</div>
+          <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--gray-500)' }}>{row.email}</div>
         </div>
       ),
     },
@@ -34,9 +34,9 @@ const AdminStoreDetail = () => {
       key: 'rating',
       label: 'Rating',
       render: (row) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
           <StarRating value={row.rating} readOnly style={{ fontSize: '0.875rem' }} />
-          <span style={{ fontWeight: 700, fontSize: '0.875rem' }}>{row.rating}</span>
+          <span style={{ fontWeight: 'var(--weight-semibold)', fontSize: 'var(--font-size-sm)' }}>{row.rating}</span>
         </div>
       ),
     },
@@ -47,14 +47,14 @@ const AdminStoreDetail = () => {
         row.comment ? (
           <div className="comment-bubble">&ldquo;{row.comment}&rdquo;</div>
         ) : (
-          <span className="text-muted" style={{ fontSize: '0.8125rem' }}>—</span>
+          <span className="text-muted" style={{ fontSize: 'var(--font-size-sm)' }}>—</span>
         ),
     },
     {
       key: 'created_at',
       label: 'Date',
       render: (row) => (
-        <span style={{ fontSize: '0.8125rem', color: 'var(--gray-500)' }}>
+        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--gray-500)' }}>
           {new Date(row.created_at).toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'short',
@@ -76,10 +76,10 @@ const AdminStoreDetail = () => {
     <>
       <Navbar />
       <div className="page">
-        <div className="alert alert-error">{error}</div>
-        <button className="btn btn-secondary" onClick={() => navigate('/admin/stores')}>
-          ← Back
+        <button className="back-btn" onClick={() => navigate('/admin/stores')}>
+          ← Back to stores
         </button>
+        <div className="alert alert-error">{error}</div>
       </div>
     </>
   );
@@ -88,52 +88,57 @@ const AdminStoreDetail = () => {
     <>
       <Navbar />
       <div className="page">
-        <div className="flex items-center gap-4" style={{ marginBottom: '1.5rem' }}>
-          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/admin/stores')}>
-            ← Back
-          </button>
-          <h1 className="page-title" style={{ marginBottom: 0, textAlign: 'center', flex: 1 }}>
-            Store Detail
-          </h1>
-          <button className="btn btn-primary btn-sm" onClick={() => navigate(`/admin/stores/${id}/edit`)}>
-            Edit Store
-          </button>
-        </div>
+        <button className="back-btn" onClick={() => navigate('/admin/stores')}>
+          ← Back to stores
+        </button>
 
-        <div className="stat-grid" style={{ marginBottom: '2rem' }}>
+        <header className="page-header flex items-center justify-between">
+          <div>
+            <h1 className="page-title">Store details</h1>
+            <p className="page-subtitle">{store.name}</p>
+          </div>
+          <button className="btn btn-secondary" onClick={() => navigate(`/admin/stores/${id}/edit`)}>
+            Edit store
+          </button>
+        </header>
+
+        <div className="stat-grid">
           <div className="stat-card">
             <span className="stat-label">Store</span>
-            <div style={{ fontWeight: 700, fontSize: '1.125rem', color: 'var(--gray-900)', marginTop: '0.25rem' }}>
+            <div style={{ fontWeight: 'var(--weight-semibold)', fontSize: 'var(--font-size-lg)', color: 'var(--gray-900)', marginTop: 'var(--space-1)' }}>
               {store.name}
             </div>
-            <div className="text-muted" style={{ fontSize: '0.8125rem', marginTop: '0.125rem' }}>
+            <div className="text-muted" style={{ fontSize: 'var(--font-size-sm)', marginTop: 'var(--space-1)' }}>
               {store.email}
             </div>
-            <div className="text-muted" style={{ fontSize: '0.8125rem' }}>
+            <div className="text-muted" style={{ fontSize: 'var(--font-size-sm)' }}>
               {store.address}
             </div>
           </div>
+
           <div className="stat-card">
-            <span className="stat-label">Average Rating</span>
+            <span className="stat-label">Average rating</span>
             {store.avg_rating ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.25rem' }}>
-                <span className="stat-value" style={{ color: 'var(--warning)' }}>{store.avg_rating}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginTop: 'var(--space-1)' }}>
+                <span className="stat-value" style={{ color: 'var(--warning)', fontSize: 'var(--font-size-3xl)' }}>{store.avg_rating}</span>
                 <StarRating value={Math.round(store.avg_rating)} readOnly />
               </div>
             ) : (
-              <div className="text-muted" style={{ fontSize: '0.875rem', marginTop: '0.25rem' }}>No ratings yet</div>
+              <div className="text-muted" style={{ fontSize: 'var(--font-size-sm)', marginTop: 'var(--space-1)' }}>No ratings yet</div>
             )}
           </div>
+
           <div className="stat-card">
-            <span className="stat-label">Total Reviews</span>
+            <span className="stat-label">Total reviews</span>
             <span className="stat-value">{store.total_ratings}</span>
           </div>
+
           <div className="stat-card">
             <span className="stat-label">Owner</span>
-            <div style={{ fontWeight: 600, fontSize: '1rem', color: 'var(--gray-900)', marginTop: '0.25rem' }}>
+            <div style={{ fontWeight: 'var(--weight-semibold)', fontSize: 'var(--font-size-md)', color: 'var(--gray-900)', marginTop: 'var(--space-1)' }}>
               {store.owner_name || '—'}
             </div>
-            <div className="text-muted" style={{ fontSize: '0.75rem', marginTop: '0.125rem' }}>
+            <div className="text-muted" style={{ fontSize: 'var(--font-size-xs)', marginTop: 'var(--space-1)' }}>
               {store.owner_name ? 'Assigned' : 'Unassigned'}
             </div>
           </div>
@@ -143,7 +148,7 @@ const AdminStoreDetail = () => {
           columns={columns}
           data={store.ratings}
           emptyText="No ratings yet for this store"
-          header={`Customer Ratings (${store.total_ratings})`}
+          header={`Customer ratings (${store.total_ratings})`}
         />
       </div>
     </>

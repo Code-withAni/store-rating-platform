@@ -54,41 +54,44 @@ const AdminAddUser = () => {
   return (
     <>
       <Navbar />
-      <div className="page" style={{ maxWidth: 500 }}>
-        <div className="flex items-center gap-4" style={{ marginBottom: '2rem' }}>
-          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/admin/users')}>
-            ← Back
-          </button>
-          <h1 className="page-title" style={{ marginBottom: 0 }}>Add New User</h1>
+      <div className="page" style={{ maxWidth: '500px' }}>
+        <button className="back-btn" onClick={() => navigate('/admin/users')}>
+          ← Back to users
+        </button>
+
+        <div className="page-header">
+          <h1 className="page-title">Add user</h1>
+          <p className="page-subtitle">Create a new user account with appropriate permissions.</p>
         </div>
-        <div className="card">
+
+        <div className="card" style={{ padding: 'var(--space-6)' }}>
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-              <label>Full Name</label>
-              <input type="text" {...field('name')} placeholder="Min 20 characters" />
+              <label className="form-label">Full name</label>
+              <input type="text" {...field('name')} placeholder="Enter full name" />
               {errors.name && <span className="error-msg">{errors.name}</span>}
             </div>
 
             <div className="form-group">
-              <label>Email</label>
-              <input type="email" {...field('email')} />
+              <label className="form-label">Email address</label>
+              <input type="email" {...field('email')} placeholder="name@company.com" />
               {errors.email && <span className="error-msg">{errors.email}</span>}
             </div>
 
             <div className="form-group">
-              <label>Address</label>
-              <textarea rows={2} {...field('address')} />
+              <label className="form-label">Address</label>
+              <textarea rows={2} {...field('address')} placeholder="Enter physical address" />
               {errors.address && <span className="error-msg">{errors.address}</span>}
             </div>
 
             <div className="form-group">
-              <label>Password</label>
-              <PasswordInput {...field('password')} placeholder="8–16 chars, 1 uppercase, 1 special" />
+              <label className="form-label">Password</label>
+              <PasswordInput {...field('password')} placeholder="Create a strong password" />
               {errors.password && <span className="error-msg">{errors.password}</span>}
             </div>
 
             <div className="form-group">
-              <label>Role</label>
+              <label className="form-label">Role</label>
               <select {...field('role')}>
                 <option value="user">Normal User</option>
                 <option value="owner">Store Owner</option>
@@ -97,16 +100,18 @@ const AdminAddUser = () => {
               {errors.role && <span className="error-msg">{errors.role}</span>}
             </div>
 
-            <button type="submit" className="btn btn-primary btn-block mt-2" disabled={loading}>
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <span className="spinner" />
-                  <span>Creating User...</span>
-                </div>
-              ) : (
-                'Create User'
-              )}
-            </button>
+            <div style={{ marginTop: 'var(--space-6)', paddingTop: 'var(--space-6)', borderTop: '1px solid var(--gray-100)' }}>
+              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <span className="spinner" />
+                    <span>Creating user...</span>
+                  </div>
+                ) : (
+                  'Create user'
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </div>

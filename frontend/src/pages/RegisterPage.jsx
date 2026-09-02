@@ -53,52 +53,72 @@ const RegisterPage = () => {
 
   return (
     <div className="auth-page">
-      <div className="auth-card" style={{ maxWidth: '480px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>✨</div>
+      <div className="auth-card" style={{ maxWidth: '440px' }}>
+        <div className="text-center mb-8">
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '48px',
+            height: '48px',
+            background: 'var(--success-light)',
+            borderRadius: 'var(--radius-xl)',
+            marginBottom: 'var(--space-4)',
+            fontSize: '1.5rem'
+          }}>
+            <span style={{ color: 'var(--success)' }}>✦</span>
+          </div>
           <h1>Create your account</h1>
-          <p>Join StoreRater to discover and share feedback on local stores</p>
+          <p style={{ color: 'var(--gray-500)', marginTop: 'var(--space-2)' }}>
+            Join StoreRater to discover and rate local stores
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.25rem' }}>
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input type="text" {...fieldProps('name')} placeholder="Enter your full name (min 20 characters)" />
-              {errors.name && <span className="error-msg">{errors.name}</span>}
-            </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="name">Full name</label>
+            <input
+              type="text"
+              {...fieldProps('name')}
+              placeholder="Enter your full name"
+            />
+            {errors.name && <span className="error-msg">{errors.name}</span>}
+          </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input type="email" {...fieldProps('email')} placeholder="e.g. name@example.com" />
-              {errors.email && <span className="error-msg">{errors.email}</span>}
-            </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="email">Email address</label>
+            <input
+              type="email"
+              {...fieldProps('email')}
+              placeholder="name@company.com"
+            />
+            {errors.email && <span className="error-msg">{errors.email}</span>}
+          </div>
 
-            <div className="form-group">
-              <label htmlFor="address">Physical Address</label>
-              <textarea
-                rows={2}
-                {...fieldProps('address')}
-                placeholder="Enter your full physical address"
-                style={{ resize: 'none' }}
-              />
-              {errors.address && <span className="error-msg">{errors.address}</span>}
-            </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="address">Physical address</label>
+            <textarea
+              rows={2}
+              {...fieldProps('address')}
+              placeholder="Enter your full address"
+              style={{ resize: 'none' }}
+            />
+            {errors.address && <span className="error-msg">{errors.address}</span>}
+          </div>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <PasswordInput
-                {...fieldProps('password')}
-                placeholder="8+ chars, 1 uppercase, 1 symbol"
-                autoComplete="new-password"
-              />
-              {errors.password && <span className="error-msg">{errors.password}</span>}
-            </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="password">Password</label>
+            <PasswordInput
+              {...fieldProps('password')}
+              placeholder="Create a strong password"
+              autoComplete="new-password"
+            />
+            {errors.password && <span className="error-msg">{errors.password}</span>}
           </div>
 
           <button
             type="submit"
-            className="btn btn-primary btn-block btn-lg mt-4"
+            className="btn btn-primary btn-block btn-lg mt-6"
             disabled={loading}
           >
             {loading ? (
@@ -107,16 +127,27 @@ const RegisterPage = () => {
                 <span>Creating account...</span>
               </div>
             ) : (
-              'Create Account'
+              'Create account'
             )}
           </button>
         </form>
 
-        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--gray-100)', textAlign: 'center' }}>
-          <p className="text-muted">
+        <div style={{
+          marginTop: 'var(--space-8)',
+          paddingTop: 'var(--space-6)',
+          borderTop: '1px solid var(--gray-100)',
+          textAlign: 'center'
+        }}>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--gray-500)' }}>
             Already have an account?{' '}
-            <Link to="/login" style={{ color: 'var(--primary)', fontWeight: 700 }}>
-              Sign in instead
+            <Link
+              to="/login"
+              style={{
+                color: 'var(--primary)',
+                fontWeight: 'var(--weight-semibold)'
+              }}
+            >
+              Sign in
             </Link>
           </p>
         </div>

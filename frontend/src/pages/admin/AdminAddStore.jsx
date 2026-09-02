@@ -82,55 +82,62 @@ const AdminAddStore = () => {
   return (
     <>
       <Navbar />
-      <div className="page" style={{ maxWidth: 500 }}>
-        <button className="btn btn-secondary mb-2" onClick={() => navigate('/admin/stores')}>
-          ← Back
+      <div className="page" style={{ maxWidth: '500px' }}>
+        <button className="back-btn" onClick={() => navigate('/admin/stores')}>
+          ← Back to stores
         </button>
-        <h1 className="page-title">{isEdit ? 'Edit Store' : 'Add New Store'}</h1>
-        <div className="card">
+
+        <div className="page-header">
+          <h1 className="page-title">{isEdit ? 'Edit store' : 'Add store'}</h1>
+          <p className="page-subtitle">{isEdit ? 'Update store information.' : 'Register a new business location.'}</p>
+        </div>
+
+        <div className="card" style={{ padding: 'var(--space-6)' }}>
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-              <label>Store Name</label>
-              <input type="text" {...field('name')} placeholder="Min 20 characters" />
+              <label className="form-label">Store name</label>
+              <input type="text" {...field('name')} placeholder="Enter store name" />
               {errors.name && <span className="error-msg">{errors.name}</span>}
             </div>
 
             <div className="form-group">
-              <label>Store Email</label>
-              <input type="email" {...field('email')} />
+              <label className="form-label">Store email</label>
+              <input type="email" {...field('email')} placeholder="store@company.com" />
               {errors.email && <span className="error-msg">{errors.email}</span>}
             </div>
 
             <div className="form-group">
-              <label>Address</label>
-              <textarea rows={2} {...field('address')} />
+              <label className="form-label">Address</label>
+              <textarea rows={2} {...field('address')} placeholder="Enter full address" />
               {errors.address && <span className="error-msg">{errors.address}</span>}
             </div>
 
             <div className="form-group">
-              <label>Store Owner (optional)</label>
+              <label className="form-label">Store owner (optional)</label>
               <select
                 className="form-control"
                 value={form.owner_id}
                 onChange={(e) => setForm({ ...form, owner_id: e.target.value })}
               >
-                <option value="">— No Owner —</option>
+                <option value="">— No owner assigned —</option>
                 {owners.map((o) => (
                   <option key={o.id} value={o.id}>{o.name} ({o.email})</option>
                 ))}
               </select>
             </div>
 
-            <button type="submit" className="btn btn-primary btn-block mt-2" disabled={loading}>
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <span className="spinner" />
-                  <span>{isEdit ? 'Updating Store...' : 'Creating Store...'}</span>
-                </div>
-              ) : (
-                isEdit ? 'Update Store' : 'Create Store'
-              )}
-            </button>
+            <div style={{ marginTop: 'var(--space-6)', paddingTop: 'var(--space-6)', borderTop: '1px solid var(--gray-100)' }}>
+              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <span className="spinner" />
+                    <span>{isEdit ? 'Updating store...' : 'Creating store...'}</span>
+                  </div>
+                ) : (
+                  isEdit ? 'Update store' : 'Create store'
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </div>

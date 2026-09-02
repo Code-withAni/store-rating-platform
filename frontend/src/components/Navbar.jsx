@@ -9,8 +9,15 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    toast.success('Logged out');
+    toast.success('Logged out successfully');
     navigate('/login');
+  };
+
+  const homePath = () => {
+    if (!user) return '/login';
+    if (user.role === 'admin') return '/admin/dashboard';
+    if (user.role === 'owner') return '/owner/dashboard';
+    return '/stores';
   };
 
   const links = () => {
@@ -39,16 +46,16 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <NavLink to="/" className="navbar-brand">
-          <span>⭐</span> StoreRater
+        <NavLink to={homePath()} className="navbar-brand">
+          <span>★</span> StoreRater
         </NavLink>
         <div className="navbar-links">
           {links()}
           {user && (
-            <div className="flex items-center gap-4" style={{ marginLeft: '1rem', borderLeft: '1px solid var(--gray-200)', paddingLeft: '1.5rem' }}>
-              <span className="text-muted" style={{ fontSize: '0.85rem', fontWeight: 600 }}>{user.name}</span>
+            <div className="navbar-user">
+              <span className="navbar-user-name">{user.name}</span>
               <button className="btn btn-secondary btn-sm" onClick={handleLogout}>
-                Logout
+                Sign out
               </button>
             </div>
           )}

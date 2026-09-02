@@ -11,11 +11,11 @@ const RatingModal = ({ store, onClose, onSaved }) => {
   const isEdit = !!store.user_rating_id;
 
   const ratingLabels = {
-    1:  '😞 Very disappointed with the experience.',
-    2: '😕 Needs improvement in several areas.',
-    3:  '😐 It was okay, nothing special.',
-    4:  '😊 Good experience overall.',
-    5:  '😍 Excellent! Highly recommended.'
+    1: 'Very disappointed',
+    2: 'Needs improvement',
+    3: 'It was okay',
+    4: 'Good experience',
+    5: 'Excellent!'
   };
 
   const handleSubmit = async () => {
@@ -40,46 +40,60 @@ const RatingModal = ({ store, onClose, onSaved }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '540px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-6)' }}>
           <div>
-            <h3 className="modal-title" style={{ marginBottom: '0.25rem' }}>{isEdit ? 'Update Your Rating' : 'Rate this Store'}</h3>
-            <p className="text-muted" style={{ fontSize: '0.9375rem' }}>{store.name}</p>
+            <h3 className="modal-title">{isEdit ? 'Update rating' : 'Rate this store'}</h3>
+            <p className="text-muted" style={{ fontSize: 'var(--font-size-sm)' }}>{store.name}</p>
           </div>
-          <button 
+          <button
             onClick={onClose}
-            style={{ border: 'none', background: 'none', fontSize: '1.5rem', cursor: 'pointer', color: 'var(--gray-400)' }}
+            className="btn btn-ghost btn-sm"
+            style={{
+              padding: 'var(--space-1)',
+              width: '28px',
+              height: '28px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              fontSize: '1.25rem',
+              lineHeight: 1,
+            }}
+            aria-label="Close"
           >
             ×
           </button>
         </div>
 
-        <div style={{ background: 'var(--gray-50)', padding: '2.5rem 2rem', borderRadius: 'var(--radius-lg)', textAlign: 'center', marginBottom: '1.5rem' }}>
+        <div className="rating-card">
           <StarRating
             value={rating}
             onChange={setRating}
-            style={{ fontSize: '3rem', justifyContent: 'center' }}
+            style={{ fontSize: '2rem', display: 'flex', justifyContent: 'center' }}
           />
-          <div style={{ marginTop: '1.5rem' }}>
+          <div style={{ marginTop: 'var(--space-3)' }}>
             {rating > 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                <span style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--gray-900)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+                <span style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--weight-semibold)', color: 'var(--gray-900)' }}>
                   {ratingLabels[rating]}
                 </span>
-                <span style={{ fontSize: '0.875rem', color: 'var(--gray-500)', fontWeight: 500 }}>
+                <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--gray-500)' }}>
                   {rating} out of 5 stars
                 </span>
               </div>
             ) : (
-              <p style={{ fontWeight: 600, color: 'var(--gray-400)' }}>Select a rating to share your feedback</p>
+              <p style={{ color: 'var(--gray-400)', fontWeight: 'var(--weight-medium)', fontSize: 'var(--font-size-sm)' }}>
+                Select a rating to share your feedback
+              </p>
             )}
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="comment" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>Optional Comment</span>
-            <span className="text-muted" style={{ fontWeight: 400, fontSize: '0.75rem' }}>{comment.length}/200</span>
+          <label htmlFor="comment" className="form-label" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Comment</span>
+            <span className="text-muted" style={{ fontWeight: 'var(--weight-normal)' }}>{comment.length}/200</span>
           </label>
           <textarea
             id="comment"
@@ -98,7 +112,7 @@ const RatingModal = ({ store, onClose, onSaved }) => {
             Cancel
           </button>
           <button className="btn btn-primary" onClick={handleSubmit} disabled={loading || !rating}>
-            {loading ? <span className="spinner" /> : isEdit ? 'Update Rating' : 'Submit Rating'}
+            {loading ? <span className="spinner" /> : isEdit ? 'Update rating' : 'Submit rating'}
           </button>
         </div>
       </div>
@@ -138,103 +152,97 @@ const StoresPage = () => {
     <>
       <Navbar />
       <div className="page">
-        <header style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
+        <header className="page-header flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h1 className="page-title" style={{ marginBottom: '0.5rem' }}>Explore Stores</h1>
-            <p className="text-muted">Discover and rate the best local businesses in your area.</p>
+            <h1 className="page-title">Explore stores</h1>
+            <p className="page-subtitle">Discover and rate local businesses in your area.</p>
           </div>
-          
-          <div className="filters-row" style={{ padding: '0.75rem 1rem', background: 'var(--white)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-sm)', border: '1px solid var(--gray-200)' }}>
-            <div style={{ position: 'relative' }}>
-              <span style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--gray-400)' }}>🔍</span>
+
+          <div className="filters-row" style={{ marginBottom: 0, padding: 'var(--space-3) var(--space-4)', background: 'var(--gray-50)', borderRadius: 'var(--radius-xl)' }}>
+            <div className="form-group" style={{ marginBottom: 0, minWidth: '160px' }}>
               <input
                 className="form-control"
-                style={{ paddingLeft: '2.25rem', border: 'none', background: 'transparent' }}
                 placeholder="Search by name..."
                 value={filters.name}
                 onChange={(e) => setFilters({ ...filters, name: e.target.value })}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
             </div>
-            <div style={{ width: '1px', height: '24px', background: 'var(--gray-200)', margin: '0 0.5rem' }}></div>
-            <div style={{ position: 'relative' }}>
-              <span style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--gray-400)' }}>📍</span>
+            <div className="form-group" style={{ marginBottom: 0, minWidth: '160px' }}>
               <input
                 className="form-control"
-                style={{ paddingLeft: '2.25rem', border: 'none', background: 'transparent' }}
                 placeholder="Location..."
                 value={filters.address}
                 onChange={(e) => setFilters({ ...filters, address: e.target.value })}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
             </div>
-            <button className="btn btn-primary btn-sm" onClick={handleSearch} style={{ marginLeft: '0.5rem' }}>Search</button>
-            <button className="btn btn-secondary btn-sm" onClick={handleReset}>Reset</button>
+            <button className="btn btn-primary btn-sm" onClick={handleSearch}>Search</button>
+            <button className="btn btn-ghost btn-sm" onClick={handleReset}>Reset</button>
           </div>
         </header>
 
         {loading ? (
-          <div className="loading-center"><div className="spinner" style={{ width: '2.5rem', height: '2.5rem' }} /></div>
+          <div className="loading-center"><div className="spinner" /></div>
         ) : stores.length === 0 ? (
           <div className="empty-state">
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔎</div>
-            <h3>No stores found</h3>
-            <p className="text-muted mt-2">Try adjusting your filters to find what you're looking for.</p>
-            <button className="btn btn-secondary mt-3" onClick={handleReset}>Clear All Filters</button>
+            <div className="empty-state-icon">🔍</div>
+            <h3 className="empty-state-title">No stores found</h3>
+            <p className="empty-state-text">Try adjusting your filters to find what you're looking for.</p>
+            <button className="btn btn-secondary" onClick={handleReset}>Clear all filters</button>
           </div>
         ) : (
           <div className="store-grid">
-            {stores.map((store) => (
-              <div key={store.id} className="store-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            {stores.map((store, index) => (
+              <div key={store.id} className="store-card stagger-item" style={{ animationDelay: `${index * 40}ms` }}>
+                <div className="store-card-header">
                   <div className="store-card-name">{store.name}</div>
-                  <div style={{ background: 'var(--primary-light)', color: 'var(--primary)', padding: '0.25rem 0.5rem', borderRadius: 'var(--radius-sm)', fontSize: '0.75rem', fontWeight: 700 }}>
-                    {store.avg_rating ? `⭐ ${store.avg_rating}` : 'New'}
-                  </div>
-                </div>
-                
-                <div className="store-card-address" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span>📍</span> {store.address}
-                </div>
-
-                <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--gray-100)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div className="store-card-rating">
-                      {store.avg_rating ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                          <StarRating value={Math.round(store.avg_rating)} readOnly style={{ fontSize: '1.125rem' }} />
-                          <span className="text-muted" style={{ fontSize: '0.8125rem', fontWeight: 600 }}>({store.total_ratings || 0})</span>
-                        </div>
-                      ) : (
-                        <span className="text-muted" style={{ fontSize: '0.75rem' }}>No ratings yet</span>
-                      )}
-                    </div>
-                    
-                    {store.user_rating ? (
-                      <button
-                        className="btn btn-secondary btn-sm"
-                        onClick={() => setSelectedStore(store)}
-                        style={{ borderRadius: '9999px' }}
-                      >
-                        Edit Rating
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-primary btn-sm"
-                        onClick={() => setSelectedStore(store)}
-                        style={{ borderRadius: '9999px' }}
-                      >
-                        Rate Now
-                      </button>
-                    )}
-                  </div>
-                  
-                  {store.user_rating && (
-                    <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--success)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                      ✓ You rated this {store.user_rating} stars
-                    </div>
+                  {store.avg_rating ? (
+                    <div className="store-card-badge">★ {store.avg_rating}</div>
+                  ) : (
+                    <div className="store-card-badge" style={{ background: 'var(--gray-100)', color: 'var(--gray-600)' }}>New</div>
                   )}
                 </div>
+
+                <div className="store-card-address">
+                  <span style={{ flexShrink: 0 }}>📍</span>
+                  <span>{store.address}</span>
+                </div>
+
+                <div className="store-card-footer">
+                  <div className="store-card-rating">
+                    {store.avg_rating ? (
+                      <>
+                        <StarRating value={Math.round(store.avg_rating)} readOnly style={{ fontSize: '1rem' }} />
+                        <span className="store-card-rating-count">({store.total_ratings || 0})</span>
+                      </>
+                    ) : (
+                      <span className="text-muted" style={{ fontSize: 'var(--font-size-xs)' }}>No ratings yet</span>
+                    )}
+                  </div>
+
+                  {store.user_rating ? (
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => setSelectedStore(store)}
+                    >
+                      Edit rating
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-primary btn-sm"
+                      onClick={() => setSelectedStore(store)}
+                    >
+                      Rate now
+                    </button>
+                  )}
+                </div>
+
+                {store.user_rating && (
+                  <div className="store-card-user-rating">
+                    <span>✓</span> You rated this {store.user_rating} stars
+                  </div>
+                )}
               </div>
             ))}
           </div>

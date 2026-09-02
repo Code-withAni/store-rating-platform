@@ -25,6 +25,12 @@ const SortableTable = ({ columns, data, emptyText = 'No data found', header }) =
     return sortDir === 'asc' ? cmp : -cmp;
   });
 
+  const SortIcon = ({ direction, active }) => (
+    <span style={{ marginLeft: 'var(--space-1)', fontSize: '0.75rem', color: active ? 'var(--primary)' : 'var(--gray-400)' }}>
+      {direction === 'asc' ? '↑' : '↓'}
+    </span>
+  );
+
   return (
     <div className="table-wrapper">
       {header && (
@@ -40,10 +46,11 @@ const SortableTable = ({ columns, data, emptyText = 'No data found', header }) =
                 key={col.key}
                 className={col.sortable !== false ? 'sortable' : ''}
                 onClick={col.sortable !== false ? () => handleSort(col.key) : undefined}
+                scope="col"
               >
                 {col.label}
                 {col.sortable !== false && sortKey === col.key && (
-                  <span style={{ marginLeft: 4 }}>{sortDir === 'asc' ? '↑' : '↓'}</span>
+                  <SortIcon direction={sortDir} active />
                 )}
               </th>
             ))}
@@ -52,8 +59,8 @@ const SortableTable = ({ columns, data, emptyText = 'No data found', header }) =
         <tbody>
           {sorted.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="empty-state">
-                {emptyText}
+              <td colSpan={columns.length} style={{ textAlign: 'center', padding: 'var(--space-16) var(--space-8)' }}>
+                <p style={{ color: 'var(--gray-400)', fontSize: 'var(--font-size-sm)' }}>{emptyText}</p>
               </td>
             </tr>
           ) : (

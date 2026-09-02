@@ -33,10 +33,10 @@ const AdminUserDetail = () => {
     <>
       <Navbar />
       <div className="page">
-        <div className="alert alert-error">{error}</div>
-        <button className="btn btn-secondary" onClick={() => navigate('/admin/users')}>
-          ← Back
+        <button className="back-btn" onClick={() => navigate('/admin/users')}>
+          ← Back to users
         </button>
+        <div className="alert alert-error">{error}</div>
       </div>
     </>
   );
@@ -44,15 +44,17 @@ const AdminUserDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="page">
-        <div className="flex items-center gap-4" style={{ marginBottom: '1.5rem' }}>
-          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/admin/users')}>
-            ← Back
-          </button>
-          <h1 className="page-title" style={{ marginBottom: 0, textAlign: 'center', flex: 1 }}>User Detail</h1>
+      <div className="page" style={{ maxWidth: '640px' }}>
+        <button className="back-btn" onClick={() => navigate('/admin/users')}>
+          ← Back to users
+        </button>
+
+        <div className="page-header">
+          <h1 className="page-title">User details</h1>
+          <p className="page-subtitle">Viewing profile information for {user.name}</p>
         </div>
 
-        <div className="card" style={{ padding: 0, overflow: 'hidden', maxWidth: 640, margin: '0 auto' }}>
+        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
           <table className="detail-table">
             <tbody>
               {[
@@ -60,7 +62,11 @@ const AdminUserDetail = () => {
                 ['Email', user.email],
                 ['Address', user.address],
                 ['Role', roleBadge(user.role)],
-                ['Joined', new Date(user.created_at).toLocaleDateString()],
+                ['Joined', new Date(user.created_at).toLocaleDateString(undefined, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })],
               ].map(([label, val]) => (
                 <tr key={label}>
                   <td className="detail-label">{label}</td>
@@ -69,13 +75,13 @@ const AdminUserDetail = () => {
               ))}
               {user.role === 'owner' && (
                 <tr>
-                  <td className="detail-label">Store Rating</td>
+                  <td className="detail-label">Store rating</td>
                   <td className="detail-value">
                     {user.avg_rating ? (
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
                         <StarRating value={Math.round(user.avg_rating)} readOnly />
                         <span className="text-muted">({user.avg_rating})</span>
-                      </span>
+                      </div>
                     ) : (
                       <span className="text-muted">No ratings yet</span>
                     )}

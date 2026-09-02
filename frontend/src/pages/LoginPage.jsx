@@ -43,40 +43,59 @@ const LoginPage = () => {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>⭐</div>
+        <div className="text-center mb-8">
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '48px',
+            height: '48px',
+            background: 'var(--primary-light)',
+            borderRadius: 'var(--radius-xl)',
+            marginBottom: 'var(--space-4)',
+            fontSize: '1.5rem'
+          }}>
+            <span style={{ color: 'var(--primary)' }}>★</span>
+          </div>
           <h1>Welcome back</h1>
-          <p>Enter your credentials to access your account</p>
+          <p style={{ color: 'var(--gray-500)', marginTop: 'var(--space-2)' }}>
+            Sign in to your account to continue
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <div style={{ position: 'relative' }}>
-              <input
-                id="email"
-                type="email"
-                className={`form-control ${errors.email ? 'error' : ''}`}
-                placeholder="name@company.com"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                autoComplete="email"
-              />
-            </div>
+            <label className="form-label" htmlFor="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              className={`form-control ${errors.email ? 'error' : ''}`}
+              placeholder="name@company.com"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              autoComplete="email"
+            />
             {errors.email && <span className="error-msg">{errors.email}</span>}
           </div>
 
           <div className="form-group">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <label htmlFor="password">Password</label>
-              <Link to="#" style={{ fontSize: '0.8125rem', color: 'var(--primary)', fontWeight: 600 }}>
+            <div className="flex items-center justify-between">
+              <label className="form-label" htmlFor="password">Password</label>
+              <Link
+                to="#"
+                style={{
+                  fontSize: 'var(--font-size-sm)',
+                  color: 'var(--primary)',
+                  fontWeight: 'var(--weight-medium)'
+                }}
+              >
                 Forgot password?
               </Link>
             </div>
             <PasswordInput
               id="password"
               className={`form-control ${errors.password ? 'error' : ''}`}
-              placeholder="••••••••"
+              placeholder="Enter your password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               autoComplete="current-password"
@@ -86,7 +105,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="btn btn-primary btn-block btn-lg mt-4"
+            className="btn btn-primary btn-block btn-lg mt-6"
             disabled={loading}
           >
             {loading ? (
@@ -95,16 +114,27 @@ const LoginPage = () => {
                 <span>Signing in...</span>
               </div>
             ) : (
-              'Sign in to account'
+              'Sign in'
             )}
           </button>
         </form>
 
-        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--gray-100)', textAlign: 'center' }}>
-          <p className="text-muted">
-            Don't have an account yet?{' '}
-            <Link to="/register" style={{ color: 'var(--primary)', fontWeight: 700 }}>
-              Create an account
+        <div style={{
+          marginTop: 'var(--space-8)',
+          paddingTop: 'var(--space-6)',
+          borderTop: '1px solid var(--gray-100)',
+          textAlign: 'center'
+        }}>
+          <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--gray-500)' }}>
+            Don't have an account?{' '}
+            <Link
+              to="/register"
+              style={{
+                color: 'var(--primary)',
+                fontWeight: 'var(--weight-semibold)'
+              }}
+            >
+              Create one
             </Link>
           </p>
         </div>

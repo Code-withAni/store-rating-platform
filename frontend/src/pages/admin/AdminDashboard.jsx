@@ -19,9 +19,9 @@ const AdminDashboard = () => {
     <>
       <Navbar />
       <div className="page">
-        <header style={{ marginBottom: '2.5rem' }}>
-          <h1 className="page-title" style={{ marginBottom: '0.5rem' }}>Admin Overview</h1>
-          <p className="text-muted">Monitor and manage users, stores, and ratings across the platform.</p>
+        <header className="page-header">
+          <h1 className="page-title">Dashboard</h1>
+          <p className="page-subtitle">Overview of your platform's performance and activity.</p>
         </header>
 
         {loading ? (
@@ -29,60 +29,88 @@ const AdminDashboard = () => {
         ) : (
           <>
             <div className="stat-grid">
-              <div className="stat-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span className="stat-label">Total Users</span>
-                  <span style={{ fontSize: '1.5rem' }}>👥</span>
-                </div>
+              <div className="stat-card stagger-item">
+                <span className="stat-label">Total Users</span>
                 <span className="stat-value">{stats?.totalUsers ?? 0}</span>
-                <Link to="/admin/users" style={{ fontSize: '0.8125rem', color: 'var(--primary)', fontWeight: 600, marginTop: '0.5rem' }}>
+                <Link
+                  to="/admin/users"
+                  style={{
+                    fontSize: 'var(--font-size-sm)',
+                    color: 'var(--primary)',
+                    fontWeight: 'var(--weight-medium)',
+                    marginTop: 'auto',
+                    paddingTop: 'var(--space-2)'
+                  }}
+                >
                   View all users →
                 </Link>
               </div>
-              <div className="stat-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span className="stat-label">Total Stores</span>
-                  <span style={{ fontSize: '1.5rem' }}>🏬</span>
-                </div>
+
+              <div className="stat-card stagger-item">
+                <span className="stat-label">Total Stores</span>
                 <span className="stat-value">{stats?.totalStores ?? 0}</span>
-                <Link to="/admin/stores" style={{ fontSize: '0.8125rem', color: 'var(--primary)', fontWeight: 600, marginTop: '0.5rem' }}>
+                <Link
+                  to="/admin/stores"
+                  style={{
+                    fontSize: 'var(--font-size-sm)',
+                    color: 'var(--primary)',
+                    fontWeight: 'var(--weight-medium)',
+                    marginTop: 'auto',
+                    paddingTop: 'var(--space-2)'
+                  }}
+                >
                   View all stores →
                 </Link>
               </div>
-              <div className="stat-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span className="stat-label">Total Ratings</span>
-                  <span style={{ fontSize: '1.5rem' }}>⭐</span>
-                </div>
+
+              <div className="stat-card stagger-item">
+                <span className="stat-label">Total Ratings</span>
                 <span className="stat-value">{stats?.totalRatings ?? 0}</span>
-                <span className="text-muted" style={{ fontSize: '0.8125rem', marginTop: '0.5rem' }}>
+                <span
+                  className="text-muted"
+                  style={{
+                    fontSize: 'var(--font-size-sm)',
+                    marginTop: 'auto',
+                    paddingTop: 'var(--space-2)'
+                  }}
+                >
                   Across all stores
                 </span>
               </div>
             </div>
 
             <section>
-              <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem' }}>Quick Actions</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                <Link to="/admin/users/new" className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
-                  <span style={{ background: 'var(--primary-light)', padding: '0.75rem', borderRadius: 'var(--radius)', fontSize: '1.25rem' }}>👤</span>
+              <h2 style={{ fontSize: 'var(--font-size-xl)', marginBottom: 'var(--space-6)' }}>
+                Quick actions
+              </h2>
+              <div className="quick-action-grid">
+                <Link to="/admin/users/new" className="quick-action-card stagger-item">
+                  <div className="quick-action-icon blue">
+                    <span>👤</span>
+                  </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: 'var(--gray-900)' }}>Add New User</div>
-                    <div style={{ fontSize: '0.8125rem', color: 'var(--gray-500)' }}>Create a user or owner</div>
+                    <div className="quick-action-title">Add new user</div>
+                    <div className="quick-action-desc">Create a user or owner</div>
                   </div>
                 </Link>
-                <Link to="/admin/stores/new" className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
-                  <span style={{ background: '#ecfdf5', padding: '0.75rem', borderRadius: 'var(--radius)', fontSize: '1.25rem' }}>🏪</span>
+
+                <Link to="/admin/stores/new" className="quick-action-card stagger-item">
+                  <div className="quick-action-icon green">
+                    <span>🏪</span>
+                  </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: 'var(--gray-900)' }}>Add New Store</div>
-                    <div style={{ fontSize: '0.8125rem', color: 'var(--gray-500)' }}>Register a new location</div>
+                    <div className="quick-action-title">Add new store</div>
+                    <div className="quick-action-desc">Register a new location</div>
                   </div>
                 </Link>
-                <Link to="/admin/users" className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
-                  <span style={{ background: '#fff7ed', padding: '0.75rem', borderRadius: 'var(--radius)', fontSize: '1.25rem' }}>⚙️</span>
+
+                <Link to="/admin/users" className="quick-action-card stagger-item">
+                  <div className="quick-action-icon orange">
+                    <span>⚙️</span>
+                  </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: 'var(--gray-900)' }}>User Roles</div>
-                    <div style={{ fontSize: '0.8125rem', color: 'var(--gray-500)' }}>Manage permissions</div>
+                    <div className="quick-action-title">User roles</div>
+                    <div className="quick-action-desc">Manage permissions</div>
                   </div>
                 </Link>
               </div>

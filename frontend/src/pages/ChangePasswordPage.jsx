@@ -49,43 +49,49 @@ const ChangePasswordPage = () => {
   return (
     <>
       <Navbar />
-      <div className="page" style={{ maxWidth: 480 }}>
-        <h1 className="page-title">Change Password</h1>
-        <div className="card">
+      <div className="page" style={{ maxWidth: '440px' }}>
+        <div className="page-header">
+          <h1 className="page-title">Change password</h1>
+          <p className="page-subtitle">Update your password to keep your account secure.</p>
+        </div>
+
+        <div className="card" style={{ padding: 'var(--space-6)' }}>
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-              <label htmlFor="currentPassword">Current Password</label>
+              <label className="form-label" htmlFor="currentPassword">Current password</label>
               <PasswordInput id="currentPassword" {...field('currentPassword')} />
               {errors.currentPassword && <span className="error-msg">{errors.currentPassword}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="newPassword">New Password</label>
+              <label className="form-label" htmlFor="newPassword">New password</label>
               <PasswordInput
                 id="newPassword"
                 {...field('newPassword')}
-                placeholder="8–16 chars, 1 uppercase, 1 special"
+                placeholder="Create a strong password"
                 autoComplete="new-password"
               />
               {errors.newPassword && <span className="error-msg">{errors.newPassword}</span>}
             </div>
 
             <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm New Password</label>
+              <label className="form-label" htmlFor="confirmPassword">Confirm new password</label>
               <PasswordInput id="confirmPassword" {...field('confirmPassword')} />
               {errors.confirmPassword && <span className="error-msg">{errors.confirmPassword}</span>}
             </div>
 
-            <button type="submit" className="btn btn-primary btn-block mt-2" disabled={loading}>
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <span className="spinner" />
-                  <span>Updating Password...</span>
-                </div>
-              ) : (
-                'Update Password'
-              )}
-            </button>
+            <div style={{ marginTop: 'var(--space-6)', paddingTop: 'var(--space-6)', borderTop: '1px solid var(--gray-100)' }}>
+              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <span className="spinner" />
+                    <span>Updating...</span>
+                  </div>
+                ) : (
+                  'Update password'
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </div>
